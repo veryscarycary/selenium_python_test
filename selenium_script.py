@@ -18,17 +18,26 @@ def init_driver():
 
 def add_products_to_cart():
     try:
-        # Adds 5 Health + Ancestry items to the cart
-        for i in range(0, 5):
+        # Adds 3 Health + Ancestry items to the cart
+        for i in range(0, 3):
             button = driver.wait.until(EC.element_to_be_clickable(
                 (By.CLASS_NAME, "js-add-kit")))
             # Wait for loading overlay to disappear
             driver.wait.until(EC.invisibility_of_element_located((By.ID, "loading-overlay")))
             button.click()
+
+        # Adds 2 Ancestry items to the cart
+        for i in range(0, 2):
+            button = driver.wait.until(EC.element_to_be_clickable(
+                (By.CLASS_NAME, "js-add-ancestry-kit")))
+            # Wait for loading overlay to disappear
+            driver.wait.until(EC.invisibility_of_element_located((By.ID, "loading-overlay")))
+            button.click()
+
         name = driver.wait.until(EC.presence_of_element_located((By.NAME, "name")))
         driver.wait.until(EC.invisibility_of_element_located((By.ID, "loading-overlay")))
         boxes = driver.find_elements_by_class_name("js-kit-name")
-        names = ['Bill Nye', 'Rob Nye', 'Cary Nye', 'Rachel Nye', 'Cindy Nye']
+        names = ['Bill Nye', 'Rob Nye', 'Cary Meskell', 'Rachel 256456LLMFFGFD SDSDF', '23422343552']
         for idx, box in enumerate(boxes):
             assert box.get_attribute("name") == "name"
             box.send_keys(names[idx])
