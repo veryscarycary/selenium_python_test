@@ -5,17 +5,24 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
+# !! IMPORTANT !! Please switch out this path for the path leading
+#  to your Chrome driver.
+driver_path = '/Users/Cary/Desktop/seleniumtest/chromedriver';
 
 def init_driver():
+    # Chrome is the browser driver for this test. Load the line below with
+    # another browser driver, if desired
     driver = webdriver.Chrome('/Users/Cary/Desktop/seleniumtest/chromedriver')
     driver.wait = WebDriverWait(driver, 5)
     return driver
 
 def add_products_to_cart():
     try:
+        # Adds 5 Health + Ancestry items to the cart
         for i in range(0, 5):
             button = driver.wait.until(EC.element_to_be_clickable(
                 (By.CLASS_NAME, "js-add-kit")))
+            # Wait for loading overlay to disappear
             driver.wait.until(EC.invisibility_of_element_located((By.ID, "loading-overlay")))
             button.click()
         driver.wait.until(EC.presence_of_element_located((By.NAME, "name")))
@@ -25,14 +32,16 @@ def add_products_to_cart():
         for idx, box in enumerate(boxes):
             box.send_keys(names[idx])
 
+        # Wait for the greyed-out button to become green
         driver.wait.until(EC.invisibility_of_element_located((By.CLASS_NAME, "button-disabled")))
         button = driver.find_element_by_class_name('button-continue')
         button.click()
     except TimeoutException:
-        print("There was an error while adding products to the cart")
+        print("There was an error while adding products to the cart. Try running the test again.")
 
 def confirm_payment_page():
     try:
+        # if we see an element with the class 'payment-total', we can confirm we've reached the pmt page
         classname = 'payment-total'
         driver.wait.until(EC.presence_of_element_located((By.CLASS_NAME, classname)))
         print('Verification Complete: Payment page reached.')
@@ -42,10 +51,7 @@ def confirm_payment_page():
 def enter_shipping_info():
     try:
         driver.wait.until(EC.presence_of_element_located((By.ID,'id_first_name')))
-        inputs = driver.find_elements_by_tag_name('input')
-        input_data = ['Bill', 'Nye', '23AndMe', '999 Fake St', 'Suite A', 'San Francisco', 94109, 'fake@fake.com']
-
-        # Begin selecting input boxes
+        input_data = ['Bill', 'Nye', '23AndMe', '1010 Bush St', 'Suite A', 'San Francisco', 94109, 'fake@fake.com']
 
         name_fields = {
             'first_name': 'Bill',
@@ -58,6 +64,8 @@ def enter_shipping_info():
             'email': 'fake@fake.com',
         }
 
+        # Begin selecting input boxes but their name attributes and entering input data
+
         for idx, key in enumerate(name_fields):
             box = driver.find_element_by_name(key)
             box.send_keys(name_fields[key])
@@ -68,16 +76,17 @@ def enter_shipping_info():
         id_int_phone = driver.find_element_by_id('id_int_phone')
         id_int_phone.send_keys('(714) 333-3333')
 
+        # Wait for greyed-out button to disappear
         driver.wait.until(EC.invisibility_of_element_located((By.CLASS_NAME, "button-disabled")))
         button = driver.find_element_by_class_name('button-continue')
         button.click()
     except TimeoutException:
-        print("There was an error processing the order on the shipping page")
+        print("There was an error processing the order on the shipping page.")
 
 def run_test(driver, query):
+    # Runs entire test. Opens up browser, visits site, and initiates helper fns
     site = "http://store.23andme.com/en-us/"
     driver.get(site)
-    driver.maximize_window()
     try:
         add_products_to_cart()
 
@@ -92,7 +101,7 @@ def run_test(driver, query):
 
 def verify_address():
     try:
-
+        # if verified address is available, select that. Otherwise, go with unverified
         verified = driver.wait.until(EC.presence_of_element_located((By.NAME,'verified')))
         if verified:
             verified.click()
@@ -102,7 +111,7 @@ def verify_address():
             unverified.click()
 
     except TimeoutException:
-        print("There was an error while verifying the address")
+        print("There was an error while verifying the address.")
 
 
 if __name__ == "__main__":
