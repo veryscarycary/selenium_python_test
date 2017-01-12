@@ -1,6 +1,6 @@
 # selenium_python_test
 
-This general purpose test is designed to verify that the 23andMe Store is functioning correctly and allows a customer to reach the payment page as intended. The test will select 5 Health & Ancestry products and proceed to the next page to enter in shipping information. The customer then moves from the shipping information page to the verification page to confirm the verified address. Lastly, the customer arrives at the payment page to enter in credit card information.
+This general purpose test is designed to verify that the 23andMe Store is functioning correctly and allows a customer to reach the payment page as intended. The test will select 3 Health & Ancestry products and 2 Ancestry products to add to the cart and proceed to the next page to enter in shipping information. The customer then moves from the shipping information page to the verification page to confirm the verified address. Lastly, the customer arrives at the payment page to enter in credit card information.
 
 ## Dependencies
     1. Python 3 (This script was written with Python 3 syntax, so it will not run correctly with Python 2)
