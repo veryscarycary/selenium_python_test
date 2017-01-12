@@ -5,13 +5,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
-# !! IMPORTANT !! Please switch out this path for the path leading
-#  to your Chrome driver.
-driver_path = "/Users/Cary/Desktop/seleniumtest/chromedriver";
+
+# Chrome is the browser driver for this test. Load the line below with
+# another browser driver, if desired
+driver_path = "./chromedriver";
 
 def init_driver():
-    # Chrome is the browser driver for this test. Load the line below with
-    # another browser driver, if desired
     driver = webdriver.Chrome(driver_path)
     driver.wait = WebDriverWait(driver, 5)
     return driver
