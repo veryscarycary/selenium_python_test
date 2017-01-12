@@ -12,6 +12,6 @@ This general purpose test is designed to verify that the 23andMe Store is functi
     2. In terminal, type the following and hit enter: python selenium_script.py
     
 ## Results
-    Upon execution, the chrome browser will launch and run it's automated tasks. If the test finds any errors, it will print them in the terminal. Likewise, at the end of the test, a success message will appear letting you know that he test has completed successfully.
+    Upon execution, the chrome browser will launch and run it's automated tasks. If the test finds any errors, it will print them in the terminal. Likewise, at the end of the test, a success message will appear letting you know that the test has completed successfully.
 
 
